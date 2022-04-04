@@ -1,0 +1,56 @@
+{% extends 'base_layout.html' %}
+{% block title %}Cơ sở dữ liệu côn trùng{% endblock %}
+{% block content %}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+   <div>
+       <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'insects:map' %}">
+           {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Search insect" name="searched" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+   </div>
+      </nav>
+    <center>
+    {% if searched %}
+
+              <div class="container">
+                <div class="row mt-4">
+                    <div class="col-md-10 offset-md-1">
+                        {{ m|safe }}
+
+                    </div>
+                 </div>
+             </div>
+
+            <div>
+
+                <p>Xem chi tiết thông tin - Hãy nhấp vào link</p>
+                <a  href="/detail/insect_{{searched}}"><button>Xem Chi tiết {{searched}}</button></a>
+            </div>
+
+        {% else %}
+             <div class="container">
+                <div class="row mt-4">
+                    <div class="col-md-10 offset-md-1">
+                        {{ m|safe }}
+
+                    </div>
+                 </div>
+             </div>
+
+
+    {% endif %}
+
+
+</center>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+{% endblock %}

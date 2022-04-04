@@ -1,0 +1,109 @@
+{% extends 'base_layout.html' %}
+
+{% block link %}
+{% load static %}
+
+{% endblock %}
+
+{% block title %}Cơ sở dữ liệu côn trùng{% endblock %}
+
+{% block content %}
+
+{#  <br>#}
+{#    <div class=”container”>#}
+{#        <div class=”row”>#}
+{#                {{ post.title }}#}
+{#                     <img src="{{ post.thumb.url}}" width="100px" height="100px" alt="hinh anh"><br>#}
+{#                     <a href="{{ post.adminupload.url }}" download="{{ post.adminupload.url }}">Download</a>#}
+{#            </div>#}
+{#    </div>#}
+   <div>
+       <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'insects:search_insect' %}">
+           {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Search insect" name="searched" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+   </div>
+    <center>
+    {% if searched %}
+         <div class="album py-5 bg-light">
+     <div class="container">
+
+      <div class="pb-3 h5">Insects</div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        {% for FilesAdmin in insects %}
+            <div class="col">
+          <div class="card shadow-sm">
+            <img class="img-fluid" alt="Responsive image" src="{{ FilesAdmin.thumb.url }}">
+            <div class="card-body">
+              <p class="card-text">
+                <a class="text-dark text-decoration-none" href="#">{{ FilesAdmin}}</a>
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted"><a href="{{ post.adminupload.url }}" download="{{ FilesAdmin.adminupload.url }}">Download</a></small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+    {% else %}
+        <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="pb-3 h5">Insects</div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+        {% for post in file %}
+
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="img-fluid" alt="Responsive image" src="{{ post.thumb.url }}">
+            <div class="card-body">
+              <p class="card-text">
+                <a class="text-dark text-decoration-none" href="#">{{ post.title }}</a>
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted"><a href="{{ post.adminupload.url }}" download="{{ post.adminupload.url }}">Download</a></small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+    {% endif %}
+
+    </center>
+{#    <div class="album py-5 bg-light">#}
+{#    <div class="container">#}
+{##}
+{#      <div class="pb-3 h5">Insects</div>#}
+{#      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">#}
+{##}
+{#        {% for post in file %}#}
+{##}
+{#        <div class="col">#}
+{#          <div class="card shadow-sm">#}
+{#            <img class="img-fluid" alt="Responsive image" src="{{ post.thumb.url }}">#}
+{#            <div class="card-body">#}
+{#              <p class="card-text">#}
+{#                <a class="text-dark text-decoration-none" href="#">{{ post.title }}</a>#}
+{#              </p>#}
+{#              <div class="d-flex justify-content-between align-items-center">#}
+{#                <small class="text-muted"><a href="{{ post.adminupload.url }}" download="{{ post.adminupload.url }}">Download</a></small>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{##}
+{#        {% endfor %}#}
+{##}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+
+{% endblock %}

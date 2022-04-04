@@ -1,0 +1,81 @@
+{% extends 'base_layout.html' %}
+
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'search_tool.css' %}">
+    <script src="{% static 'js/search.js' %}"></script>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'all.min.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="column2 border-right">
+            <div class="title">
+                <h1>Cây phân loài</h1>
+            </div>
+
+            <div class="cl2_content">
+                <div class="tv">
+                    <ul id="treeview">
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="column2">
+            <div class="title">
+                <h1>Tìm kiếm bằng ảnh</h1>
+            </div>
+            <div class="cl2_content">
+                <form class="content__form-find--img"
+                      onSubmit="if(document.getElementById('file-upload').value == '') {location.reload(); return false;}"
+                      enctype="multipart/form-data" action="{% url "insects:search_img" %}"
+                      method="POST">
+                    {% csrf_token %}
+                    <div title="Cần một hình ảnh về nước uống bạn cần tìm"
+                         style="display: flex; justify-content: center; align-items: center">
+                        <label for="file-upload" class="custom-file-upload">
+                            <i class="fa fa-cloud-upload"></i> Chọn ảnh
+                        </label>
+                        <input id="file-upload" name='imageFile' type="file" style="display:none;"
+                               accept=".jpg, .jpeg, .png" multiple data-max-file-size="3MB" data-max-files="1"/>
+
+                    </div>
+
+                    <button title="Chờ đợi là hạnh phúc!!" type="submit" name="submit" class="button"
+                            onclick="this.classList.toggle('button--loading')">
+                        <span class="button__text">Tìm kiếm</span>
+                    </button>
+                </form>
+                <div class="title">
+                    <h1>Kết quả</h1>
+                </div>
+                <div style="background: #c4dce8">
+                    {% if name_sc %}
+{#                        <p class="section-product__title-text">Kết quả tìm kiếm {{ ms }}</p>#}
+                        <img src="{% static '' %}{{ path_ins }}" alt="" width="200px" height="200px" style="border: 2px solid white; border-radius: 10px;" >
+                        <a href="/detail/insect_{{ name_sc }}" style="font-size: 30px; color: #ba2121 ; font-family: serif;">{{ name_sc }}</a>
+
+                   {% endif %}
+                    {% if ms %}
+                                 <p class="section-product__title-text">Kết quả tìm kiếm {{ ms }}.... Bạn vui lòng nhập một ảnh khác</p>
+                    {%  endif %}
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+
+{% endblock %}
